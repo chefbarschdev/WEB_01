@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 """
 Automatic GitHub Repository Creation and Push Script for AISOLUTIONS
+
+Usage:
+    python push_to_github.py [--repo-path PATH] [--repo-name NAME]
+
+The repository path and name can also be provided through the
+environment variables ``REPO_PATH`` and ``REPO_NAME``. Command-line
+arguments take precedence over environment variables.
 """
 
 import os
 import subprocess
+import argparse
 from datetime import datetime
 
 def run_cmd(cmd, cwd=None):
@@ -24,9 +32,30 @@ def run_cmd(cmd, cwd=None):
         return False, str(e)
 
 def main():
-    # Configuration
-    repo_path = r"c:\Users\Jarvis\Desktop\WEB\NEWWEB"
-    repo_name = "aisolutions-qwik-funnel"
+    parser = argparse.ArgumentParser(
+        description="Create a GitHub repository and push local changes"
+    )
+    parser.add_argument(
+        "--repo-path",
+        default=os.environ.get("REPO_PATH"),
+        help="Path to the local repository. Can be set via REPO_PATH env var",
+    )
+    parser.add_argument(
+        "--repo-name",
+        default=os.environ.get("REPO_NAME"),
+        help="Name of the GitHub repository. Can be set via REPO_NAME env var",
+    )
+
+    args = parser.parse_args()
+
+    repo_path = args.repo_path
+    repo_name = args.repo_name
+
+    if not repo_path or not repo_name:
+        print(
+            "❌ repo_path and repo_name must be provided via arguments or environment variables"
+        )
+        return
     
     print("🚀 AISOLUTIONS GitHub Push Script")
     print("=" * 40)
