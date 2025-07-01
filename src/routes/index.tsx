@@ -1,9 +1,9 @@
-import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
-import { NavBar } from "../components/NavBar";
-import { Hero } from "../components/Hero";
-import { ValueProps } from "../components/ValueProps";
-import { Footer } from "../components/Footer";
+import { component$ } from '@builder.io/qwik';
+import type { DocumentHead } from '@builder.io/qwik-city';
+import { NavBar } from '../components/NavBar';
+import { Hero } from '../components/Hero';
+import { ValueProps } from '../components/ValueProps';
+import { Footer } from '../components/Footer';
 
 export default component$(() => {
   return (

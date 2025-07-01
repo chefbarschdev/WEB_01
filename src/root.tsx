@@ -42,3 +42,4 @@ export default component$(() => {
     </QwikCityProvider>
   );
 });
+
