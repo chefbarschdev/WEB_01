@@ -4,8 +4,8 @@
 
 /* Custom fire effect styles */
 .fire-glow {
-  text-shadow: 0 0 8px rgba(255, 115, 0, 0.6);
-  background: linear-gradient(90deg, rgba(255, 200, 50, 0.3), rgba(255, 80, 0, 0.3));
+  text-shadow: 0 0 4px rgba(255, 115, 0, 0.4);
+  background: linear-gradient(90deg, rgba(255, 200, 50, 0.2), rgba(255, 80, 0, 0.1));
   -webkit-background-clip: text;
   background-clip: text;
   filter: brightness(1.05);

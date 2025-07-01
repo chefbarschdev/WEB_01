@@ -5,13 +5,13 @@ export default {
     extend: {
       colors: {
         primary: {
-          blue: '#3b82f6',
-          red: '#ef4444',
-          green: '#10b981'
+          blue: '#60a5fa',
+          red: '#f87171',
+          green: '#34d399',
         },
         light: {
-          background: '#f0f9ff'
-        }
+          background: '#f8fafc',
+        },
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
