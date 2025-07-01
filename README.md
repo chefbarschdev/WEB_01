@@ -77,6 +77,11 @@ src/
    pnpm preview
    ```
 
+5. **Run ESLint checks:**
+   ```bash
+   pnpm lint
+   ```
+
 ## 🔧 Environment Setup
 
 ### Supabase Configuration
@@ -168,6 +173,7 @@ pnpm preview
 3. Test on mobile devices
 4. Optimize for performance
 5. Update documentation
+6. Run `pnpm lint` before committing
 
 ## 📞 Support
 
