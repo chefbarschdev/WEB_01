@@ -7,7 +7,7 @@ export const Hero = component$(() => {
       <div class="max-w-6xl mx-auto px-4 text-center">
         <div class="animate-fade-in">
           <h1 class="text-5xl md:text-6xl font-bold mb-8 leading-tight">
-            Turn AI <span class="fire-glow">FOMO</span> into <span class="text-yellow-600">ROI</span>
+            Transform AI Potential into <span class="text-yellow-600">Business Value</span>
           </h1>
 
           <p class="text-xl md:text-2xl mb-10 text-blue-800 max-w-3xl mx-auto leading-relaxed">
