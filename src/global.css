@@ -16,9 +16,9 @@
   transition: text-shadow 0.3s, filter 0.3s;
 }
 
-/* Smooth transitions */
+/* Ensure consistent box sizing without heavy global transitions */
 * {
-  transition: transform 0.2s ease-in-out;
+  box-sizing: border-box;
 }
 
 /* Custom scrollbar */

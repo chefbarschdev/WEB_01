@@ -129,7 +129,7 @@ export const WaitlistForm = component$(() => {
           
           <form preventdefault:submit onSubmit$={submitForm} class="space-y-6">
             {error.value && (
-              <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+              <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg" role="alert" aria-live="assertive">
                 {error.value}
               </div>
             )}
@@ -145,6 +145,8 @@ export const WaitlistForm = component$(() => {
                 onInput$={(e) => formData.name = (e.target as HTMLInputElement).value}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 placeholder="John Smith"
+                autoComplete="name"
+                autoFocus
                 required
               />
             </div>
@@ -160,6 +162,7 @@ export const WaitlistForm = component$(() => {
                 onInput$={(e) => formData.email = (e.target as HTMLInputElement).value}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 placeholder="john@company.com"
+                autoComplete="email"
                 required
               />
             </div>
@@ -175,6 +178,7 @@ export const WaitlistForm = component$(() => {
                 onInput$={(e) => formData.company = (e.target as HTMLInputElement).value}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 placeholder="Acme Corp"
+                autoComplete="organization"
                 required
               />
             </div>
