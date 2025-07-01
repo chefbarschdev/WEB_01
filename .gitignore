@@ -106,3 +106,6 @@ jspm_packages/
 
 # Vite
 vite.config.ts.timestamp-*
+
+# Netlify
+.netlify
