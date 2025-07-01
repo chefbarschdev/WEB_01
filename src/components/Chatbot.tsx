@@ -1,4 +1,4 @@
-import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
+import { component$, useSignal, useStore, useTask$, $ } from '@builder.io/qwik';
 
 interface Message {
   id: string;
@@ -19,6 +19,15 @@ export const Chatbot = component$(() => {
   
   const inputValue = useSignal('');
   const isLoading = useSignal(false);
+  const containerRef = useSignal<HTMLDivElement>();
+
+  // Auto-scroll to bottom when new messages arrive
+  useTask$(({ track }) => {
+    track(() => messages.length);
+    if (containerRef.value) {
+      containerRef.value.scrollTop = containerRef.value.scrollHeight;
+    }
+  });
   
   const sendMessage = $(async () => {
     if (!inputValue.value.trim() || isLoading.value) return;
@@ -80,7 +89,7 @@ export const Chatbot = component$(() => {
         </div>
         
         {/* Messages */}
-        <div class="h-96 overflow-y-auto p-4 space-y-4">
+        <div ref={containerRef} class="h-96 overflow-y-auto p-4 space-y-4">
           {messages.map((message) => (
             <div
               key={message.id}
