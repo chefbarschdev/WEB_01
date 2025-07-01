@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 
 interface Testimonial {
   id: number;
@@ -70,17 +70,23 @@ export const Testimonials = component$(() => {
     return () => clearInterval(timer);
   });
   
-  const nextTestimonial = () => {
-    current.value = (current.value + 1) % testimonials.length;
-  };
+  const nextTestimonial = $(
+    () => {
+      current.value = (current.value + 1) % testimonials.length;
+    }
+  );
   
-  const prevTestimonial = () => {
-    current.value = current.value === 0 ? testimonials.length - 1 : current.value - 1;
-  };
+  const prevTestimonial = $(
+    () => {
+      current.value = current.value === 0 ? testimonials.length - 1 : current.value - 1;
+    }
+  );
   
-  const goToTestimonial = (index: number) => {
-    current.value = index;
-  };
+  const goToTestimonial = $(
+    (index: number) => {
+      current.value = index;
+    }
+  );
   
   return (
     <section class="py-16 bg-gray-50">
