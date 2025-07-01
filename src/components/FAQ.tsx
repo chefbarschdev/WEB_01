@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { $, component$, useSignal } from '@builder.io/qwik';
 
 interface FAQItem {
   id: number;
@@ -52,9 +52,11 @@ export const FAQ = component$(() => {
     }
   ];
   
-  const toggleItem = (id: number) => {
-    openItem.value = openItem.value === id ? null : id;
-  };
+  const toggleItem = $(
+    (id: number) => {
+      openItem.value = openItem.value === id ? null : id;
+    }
+  );
   
   return (
     <section class="py-16 bg-white">
