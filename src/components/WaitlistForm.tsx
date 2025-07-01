@@ -22,6 +22,9 @@ export const WaitlistForm = component$(() => {
   const isLoading = useSignal(false);
   const showCalendly = useSignal(false);
   
+  // Form submission handler. If switching to a FormData-based approach,
+  // these `name` attributes enable retrieval via
+  // `new FormData(event.target as HTMLFormElement)`.
   const submitForm = $(async () => {
     if (isLoading.value) return;
     
@@ -141,6 +144,7 @@ export const WaitlistForm = component$(() => {
               <input
                 type="text"
                 id="name"
+                name="name"
                 value={formData.name}
                 onInput$={(e) => formData.name = (e.target as HTMLInputElement).value}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -158,6 +162,7 @@ export const WaitlistForm = component$(() => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 value={formData.email}
                 onInput$={(e) => formData.email = (e.target as HTMLInputElement).value}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -174,6 +179,7 @@ export const WaitlistForm = component$(() => {
               <input
                 type="text"
                 id="company"
+                name="company"
                 value={formData.company}
                 onInput$={(e) => formData.company = (e.target as HTMLInputElement).value}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -189,6 +195,7 @@ export const WaitlistForm = component$(() => {
               </label>
               <select
                 id="size"
+                name="size"
                 value={formData.size}
                 onChange$={(e) => formData.size = (e.target as HTMLSelectElement).value}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -209,6 +216,7 @@ export const WaitlistForm = component$(() => {
               </label>
               <textarea
                 id="pain"
+                name="pain"
                 value={formData.pain}
                 onInput$={(e) => formData.pain = (e.target as HTMLTextAreaElement).value}
                 rows={4}
