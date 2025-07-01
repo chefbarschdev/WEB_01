@@ -5,9 +5,12 @@ export default {
     extend: {
       colors: {
         primary: {
-          blue: '#0D6EFD',
-          red: '#DC3545',
-          green: '#198754'
+          blue: '#3b82f6',
+          red: '#ef4444',
+          green: '#10b981'
+        },
+        light: {
+          background: '#f0f9ff'
         }
       },
       animation: {
