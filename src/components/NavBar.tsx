@@ -1,8 +1,9 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import { Link, useLocation } from '@builder.io/qwik-city';
 
 export const NavBar = component$(() => {
   const loc = useLocation();
+  const menuOpen = useSignal(false);
   
   const isActive = (path: string) => {
     return loc.url.pathname === path;
@@ -56,11 +57,49 @@ export const NavBar = component$(() => {
 
           {/* Mobile menu button */}
           <div class="md:hidden">
-            <button aria-label="Toggle navigation" class="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600">
+            <button
+              aria-label="Toggle navigation"
+              onClick$={() => (menuOpen.value = !menuOpen.value)}
+              class="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600"
+            >
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
+          </div>
+        </div>
+        <div class={`md:hidden ${menuOpen.value ? 'block' : 'hidden'}`}>
+          <div class="flex flex-col space-y-2 py-2">
+            <Link
+              href="/"
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/')
+                  ? 'text-blue-600 bg-blue-50'
+                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/demo/"
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/demo/')
+                  ? 'text-red-600 bg-red-50'
+                  : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
+              }`}
+            >
+              Demo
+            </Link>
+            <Link
+              href="/join/"
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/join/')
+                  ? 'text-green-600 bg-green-50'
+                  : 'text-gray-700 hover:text-green-600 hover:bg-gray-50'
+              }`}
+            >
+              Wait-list
+            </Link>
           </div>
         </div>
       </div>
