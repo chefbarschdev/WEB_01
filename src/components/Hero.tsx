@@ -1,5 +1,5 @@
-import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import { component$ } from "@builder.io/qwik";
+import { Link } from "@builder.io/qwik-city";
 
 export const Hero = component$(() => {
   return (
@@ -15,7 +15,7 @@ export const Hero = component$(() => {
             Get live demos, expert guidance, and a custom MVP blueprint
             to transform your business with AI solutions.
           </p>
-          
+
           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/demo/"
@@ -23,9 +23,9 @@ export const Hero = component$(() => {
             >
               🚀 Explore Live Demos
             </Link>
-            
-            <Link 
-              href="/join/" 
+
+            <Link
+              href="/join/"
               class="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 hover:scale-105"
             >
               📋 Join Wait-list
