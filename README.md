@@ -58,7 +58,7 @@ src/
 
 1. **Clone and install dependencies:**
    ```bash
-   cd c:\Users\Jarvis\Desktop\WEB\NEWWEB
+   cd path/to/project
    pnpm install
    ```
 
