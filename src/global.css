@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom fire effect styles */
+.fire-glow {
+  text-shadow:
+    0 0 32px #ffd700,
+    0 0 64px #ff6600,
+    0 0 16px #ff3300,
+    0 2px 4px #000;
+  background: linear-gradient(90deg, rgba(255,200,50,0.25) 0%, rgba(255,150,0,0.18) 50%, rgba(255,0,0,0.22) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: brightness(1.2) drop-shadow(0 0 40px #ffd70080) drop-shadow(0 0 80px #ff660080);
+  transition: text-shadow 0.3s, filter 0.3s;
+}
+
+/* Smooth transitions */
+* {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
