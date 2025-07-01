@@ -1,9 +1,9 @@
-import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { NavBar } from '../components/NavBar';
-import { Hero } from '../components/Hero';
-import { ValueProps } from '../components/ValueProps';
-import { Footer } from '../components/Footer';
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { NavBar } from "../components/NavBar";
+import { Hero } from "../components/Hero";
+import { ValueProps } from "../components/ValueProps";
+import { Footer } from "../components/Footer";
 
 export default component$(() => {
   return (
@@ -11,7 +11,7 @@ export default component$(() => {
       <NavBar />
       <Hero />
       <ValueProps />
-      
+
       {/* Logos row placeholder */}
       <section class="py-12 bg-white">
         <div class="max-w-6xl mx-auto px-4">
@@ -34,26 +34,28 @@ export default component$(() => {
           </div>
         </div>
       </section>
-      
+
       <Footer />
     </div>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'AISOLUTIONS - Turn AI FOMO into ROI',
+  title: "AISOLUTIONS - Transform AI Potential into Business Value",
   meta: [
     {
-      name: 'description',
-      content: 'Transform your business with AI solutions. Live demos, expert consultation, and MVP blueprints.',
+      name: "description",
+      content:
+        "Transform AI potential into business value with live demos, expert guidance, and MVP blueprints.",
     },
     {
-      property: 'og:title',
-      content: 'AISOLUTIONS - Turn AI FOMO into ROI',
+      property: "og:title",
+      content: "AISOLUTIONS - Transform AI Potential into Business Value",
     },
     {
-      property: 'og:description',
-      content: 'Transform your business with AI solutions. Live demos, expert consultation, and MVP blueprints.',
+      property: "og:description",
+      content:
+        "Transform AI potential into business value with live demos, expert guidance, and MVP blueprints.",
     },
   ],
 };
