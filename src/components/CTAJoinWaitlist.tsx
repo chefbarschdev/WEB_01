@@ -1,57 +1,17 @@
 import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
 
 export const CTAJoinWaitlist = component$(() => {
   return (
-    <section class="bg-gradient-to-r from-red-600 to-red-700 py-16">
-      <div class="max-w-4xl mx-auto px-4 text-center">
-        <div class="animate-fade-in">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Pilot AI in Your Business?
-          </h2>
-          
-          <p class="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
-            Join our exclusive wait-list to get early access to our AI solutions, 
-            schedule a discovery call, and receive a custom MVP blueprint.
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Link 
-              href="/join/" 
-              class="bg-white text-red-600 px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
-            >
-              🚀 Join the Wait-list
-            </Link>
-            
-            <div class="text-red-100 text-sm">
-              <span class="block">✅ Free consultation</span>
-              <span class="block">✅ Custom MVP blueprint</span>
-              <span class="block">✅ Priority access</span>
-            </div>
-          </div>
-          
-          {/* Social Proof */}
-          <div class="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm">
-            <div class="grid md:grid-cols-3 gap-6 text-white">
-              <div>
-                <div class="text-2xl font-bold mb-1">500+</div>
-                <div class="text-red-200 text-sm">Companies on wait-list</div>
-              </div>
-              <div>
-                <div class="text-2xl font-bold mb-1">24hrs</div>
-                <div class="text-red-200 text-sm">Average response time</div>
-              </div>
-              <div>
-                <div class="text-2xl font-bold mb-1">98%</div>
-                <div class="text-red-200 text-sm">Satisfaction rate</div>
-              </div>
-            </div>
-          </div>
-          
-          <p class="text-red-200 text-sm mt-6">
-            💡 Limited spots available for Q1 2024 implementations
-          </p>
+    <section class="bg-gradient-to-tr from-yellow-200 to-pink-100 dark:from-zinc-800 dark:to-zinc-900 py-16 px-4">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-white font-sans">Join the Waitlist</h2>
+          <p class="text-lg text-neutral-600 dark:text-neutral-300 mb-6">Be the first to try our new features and get exclusive updates.</p>
         </div>
+        <form class="flex flex-col gap-4 bg-white/80 dark:bg-zinc-800 p-6 rounded-xl shadow-lg">
+          <input type="email" placeholder="Your email" class="rounded-lg border px-4 py-2 focus:outline-none focus:ring transition-all" />
+          <button type="submit" class="w-full px-6 py-3 bg-gradient-to-tr from-yellow-400 to-pink-500 text-white font-bold rounded-lg shadow-lg hover:shadow-xl active:scale-95 transition-transform">Join Waitlist</button>
+        </form>
       </div>
     </section>
   );
