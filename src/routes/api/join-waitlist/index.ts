@@ -9,7 +9,9 @@ interface WaitlistData {
   name: string;
 }
 
-export const onPost: RequestHandler = async ({ json, request }) => {
+export const onPost: RequestHandler = async ({ json, request, headers }) => {
+  // Allow cross-origin requests
+  headers.set('Access-Control-Allow-Origin', '*');
   try {
     const data: WaitlistData = await request.json();
     const ip =
@@ -68,12 +70,14 @@ export const onPost: RequestHandler = async ({ json, request }) => {
       success: true,
       message: 'Successfully joined waitlist',
     });
+    return;
   } catch (error) {
     console.error('API error:', error);
     json(500, {
       success: false,
       error: 'Internal server error',
     });
+    return;
   }
 };
 
