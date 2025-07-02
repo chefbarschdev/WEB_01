@@ -101,9 +101,14 @@ cp .env.example .env.local
 ```
 
 ```env
+# Required server credentials
 SUPABASE_URL=https://tpyfvcbudxtjqowwkmhu.supabase.co
 SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRweWZ2Y2J1ZHh0anFvd3drbWh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDAzNTYsImV4cCI6MjA2NzAxNjM1Nn0.CYt-h9Oywm8b_GxGQeJKSGOnAIzBIHikX3g6Cg
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# Optional PUBLIC_ variants are also supported
+PUBLIC_SUPABASE_URL=$SUPABASE_URL
+PUBLIC_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
 ```
 
 The `SUPABASE_SERVICE_ROLE_KEY` is used during server start to automatically
