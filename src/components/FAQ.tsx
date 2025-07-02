@@ -133,16 +133,16 @@ export const FAQ = component$(() => {
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:hello@aisolutions.com"
+              href="mailto:tim.woell@gmail.com"
               class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
             >
-              📧 Email Us
+              📧 Email Tim
             </a>
             <a
-              href="tel:+15551234567"
+              href="tel:+4915164438355"
               class="border border-green-600 text-green-600 px-6 py-3 rounded-lg hover:bg-green-50 transition-colors font-medium"
             >
-              📞 Call Us
+              📞 Call or WhatsApp Tim
             </a>
           </div>
         </div>

@@ -190,11 +190,18 @@ pnpm preview
 5. Update documentation
 6. Run `pnpm lint` before committing
 
+## 💡 Improvement Ideas
+
+- Add a dedicated contact page with an embedded form.
+- Publish case studies or blog posts to showcase success stories.
+- Improve SEO by adding meta tags and structured data.
+
 ## 📞 Support
 
 For questions or issues:
 
 - Email: support@aisolutions.com
+- Personal: tim.woell@gmail.com | +49 151 64438355 (Call or WhatsApp Tim Wöllmann)
 - Documentation: [Internal Wiki]
 - Slack: #dev-aisolutions
 
