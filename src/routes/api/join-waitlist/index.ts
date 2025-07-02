@@ -15,26 +15,32 @@ interface WaitlistData {
 export const onPost: RequestHandler = async ({ json, request }) => {
   try {
     const data: WaitlistData = await request.json();
-    
+
     // Validate required fields
-    if (!data.email || !data.company || !data.size || !data.pain || !data.name) {
+    if (
+      !data.email ||
+      !data.company ||
+      !data.size ||
+      !data.pain ||
+      !data.name
+    ) {
       json(400, {
         success: false,
-        error: 'Missing required fields'
+        error: 'Missing required fields',
       });
       return;
     }
-    
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
       json(400, {
         success: false,
-        error: 'Invalid email format'
+        error: 'Invalid email format',
       });
       return;
     }
-    
+
     // In a real implementation, you would insert into Supabase:
     /*
     const { error } = await supabase
@@ -57,7 +63,7 @@ export const onPost: RequestHandler = async ({ json, request }) => {
       return;
     }
     */
-    
+
     // For demo purposes, we'll just log the data and return success
     console.log('Waitlist signup:', {
       email: data.email,
@@ -65,25 +71,24 @@ export const onPost: RequestHandler = async ({ json, request }) => {
       size: data.size,
       pain: data.pain,
       name: data.name,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
-    
+
     // In a real implementation, you might also:
     // 1. Send a welcome email
     // 2. Add to email marketing list
     // 3. Trigger analytics events
     // 4. Send notifications to your team
-    
+
     json(200, {
       success: true,
-      message: 'Successfully joined waitlist'
+      message: 'Successfully joined waitlist',
     });
-    
   } catch (error) {
     console.error('API error:', error);
     json(500, {
       success: false,
-      error: 'Internal server error'
+      error: 'Internal server error',
     });
   }
 };

@@ -9,11 +9,19 @@
     0 0 64px #ff6600,
     0 0 16px #ff3300,
     0 2px 4px #000;
-  background: linear-gradient(90deg, rgba(255,200,50,0.25) 0%, rgba(255,150,0,0.18) 50%, rgba(255,0,0,0.22) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 200, 50, 0.25) 0%,
+    rgba(255, 150, 0, 0.18) 50%,
+    rgba(255, 0, 0, 0.22) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
-  filter: brightness(1.2) drop-shadow(0 0 40px #ffd70080) drop-shadow(0 0 80px #ff660080);
-  transition: text-shadow 0.3s, filter 0.3s;
+  filter: brightness(1.2) drop-shadow(0 0 40px #ffd70080)
+    drop-shadow(0 0 80px #ff660080);
+  transition:
+    text-shadow 0.3s,
+    filter 0.3s;
 }
 
 /* Ensure consistent box sizing without heavy global transitions */
@@ -41,7 +49,8 @@
 
 /* Loading animation */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {

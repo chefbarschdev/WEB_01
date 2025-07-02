@@ -9,27 +9,28 @@ export const CTAJoinWaitlist = component$(() => {
           <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Pilot AI in Your Business?
           </h2>
-          
+
           <p class="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
-            Join our exclusive wait-list to get early access to our AI solutions, 
-            schedule a discovery call, and receive a custom MVP blueprint.
+            Join our exclusive wait-list to get early access to our AI
+            solutions, schedule a discovery call, and receive a custom MVP
+            blueprint.
           </p>
-          
+
           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Link 
-              href="/join/" 
+            <Link
+              href="/join/"
               class="bg-white text-red-600 px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
             >
               🚀 Join the Wait-list
             </Link>
-            
+
             <div class="text-red-100 text-sm">
               <span class="block">✅ Free consultation</span>
               <span class="block">✅ Custom MVP blueprint</span>
               <span class="block">✅ Priority access</span>
             </div>
           </div>
-          
+
           {/* Social Proof */}
           <div class="bg-white bg-opacity-10 rounded-2xl p-6 backdrop-blur-sm">
             <div class="grid md:grid-cols-3 gap-6 text-white">
@@ -47,7 +48,7 @@ export const CTAJoinWaitlist = component$(() => {
               </div>
             </div>
           </div>
-          
+
           <p class="text-red-200 text-sm mt-6">
             💡 Limited spots available for Q1 2024 implementations
           </p>

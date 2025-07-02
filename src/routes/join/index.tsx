@@ -10,7 +10,7 @@ export default component$(() => {
   return (
     <div class="min-h-screen bg-green-600">
       <NavBar />
-      
+
       {/* Header */}
       <section class="bg-green-600 text-white py-16">
         <div class="max-w-4xl mx-auto px-4 text-center">
@@ -18,19 +18,20 @@ export default component$(() => {
             🚀 Join the AI Revolution
           </h1>
           <p class="text-xl text-green-100 max-w-2xl mx-auto">
-            Get exclusive early access to our AI solutions, schedule a free discovery call, 
-            and receive a custom MVP blueprint tailored to your business.
+            Get exclusive early access to our AI solutions, schedule a free
+            discovery call, and receive a custom MVP blueprint tailored to your
+            business.
           </p>
         </div>
       </section>
-      
+
       {/* Main Content */}
       <div class="bg-white">
         <WaitlistForm />
         <Testimonials />
         <FAQ />
       </div>
-      
+
       <Footer />
     </div>
   );
@@ -41,7 +42,8 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content: 'Join our exclusive wait-list for early access to AI solutions, free consultation, and custom MVP blueprint.',
+      content:
+        'Join our exclusive wait-list for early access to AI solutions, free consultation, and custom MVP blueprint.',
     },
     {
       property: 'og:title',
@@ -49,7 +51,8 @@ export const head: DocumentHead = {
     },
     {
       property: 'og:description',
-      content: 'Get exclusive early access to our AI solutions and free consultation.',
+      content:
+        'Get exclusive early access to our AI solutions and free consultation.',
     },
   ],
 };

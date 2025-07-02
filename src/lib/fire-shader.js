@@ -5,29 +5,32 @@ import * as THREE from 'three';
 
 export class VolumetricFire {
   constructor(options = {}) {
-    this.options = Object.assign({
-      width: 2,
-      height: 4,
-      depth: 2,
-      sliceSpacing: 0.2,
-      turbulence: 0.8,
-      color1: new THREE.Color(0xffffff),
-      color2: new THREE.Color(0xffc107),
-      color3: new THREE.Color(0xff5722),
-      color4: new THREE.Color(0xc41c00),
-      textElements: [],
-      intensity: 1.0,
-      decay: 0.95,
-      speed: 0.7,
-      interactive: true
-    }, options);
+    this.options = Object.assign(
+      {
+        width: 2,
+        height: 4,
+        depth: 2,
+        sliceSpacing: 0.2,
+        turbulence: 0.8,
+        color1: new THREE.Color(0xffffff),
+        color2: new THREE.Color(0xffc107),
+        color3: new THREE.Color(0xff5722),
+        color4: new THREE.Color(0xc41c00),
+        textElements: [],
+        intensity: 1.0,
+        decay: 0.95,
+        speed: 0.7,
+        interactive: true,
+      },
+      options
+    );
 
     this.time = 0;
     this.slices = [];
     this.embers = [];
     this.smokeParticles = [];
     this.meshGroup = new THREE.Group();
-    
+
     // We'll create emitter points mapped to the text elements
     this.emitterPoints = [];
 
@@ -36,13 +39,13 @@ export class VolumetricFire {
     this.mouseSpeed = 0;
     this.lastMouseX = 0;
     this.lastMouseY = 0;
-    
+
     // Initialize fire components
     this._initShaderMaterial();
     this._createFlameGeometry();
     this._createEmbers();
     this._createSmoke();
-    
+
     // Event listeners for mouse interactivity
     if (this.options.interactive) {
       window.addEventListener('mousemove', this._onMouseMove.bind(this));
@@ -201,17 +204,23 @@ export class VolumetricFire {
         color2: { value: this.options.color2 },
         color3: { value: this.options.color3 },
         color4: { value: this.options.color4 },
-        intensity: { value: this.options.intensity }
+        intensity: { value: this.options.intensity },
       },
       transparent: true,
       blending: THREE.AdditiveBlending,
-      side: THREE.DoubleSide
+      side: THREE.DoubleSide,
     });
   }
 
   // Create the main flame geometry
   _createFlameGeometry() {
-    const geometry = new THREE.CylinderGeometry(0.1, 0.8, this.options.height, 8, 16);
+    const geometry = new THREE.CylinderGeometry(
+      0.1,
+      0.8,
+      this.options.height,
+      8,
+      16
+    );
     const flameMesh = new THREE.Mesh(geometry, this.flameMaterial);
     flameMesh.position.y = this.options.height / 2;
     this.meshGroup.add(flameMesh);
@@ -223,29 +232,35 @@ export class VolumetricFire {
     const emberGeometry = new THREE.BufferGeometry();
     const emberPositions = new Float32Array(emberCount * 3);
     const emberVelocities = new Float32Array(emberCount * 3);
-    
+
     for (let i = 0; i < emberCount; i++) {
       const i3 = i * 3;
       emberPositions[i3] = (Math.random() - 0.5) * 2;
       emberPositions[i3 + 1] = Math.random() * this.options.height;
       emberPositions[i3 + 2] = (Math.random() - 0.5) * 2;
-      
+
       emberVelocities[i3] = (Math.random() - 0.5) * 0.02;
       emberVelocities[i3 + 1] = Math.random() * 0.05 + 0.02;
       emberVelocities[i3 + 2] = (Math.random() - 0.5) * 0.02;
     }
-    
-    emberGeometry.setAttribute('position', new THREE.BufferAttribute(emberPositions, 3));
-    emberGeometry.setAttribute('velocity', new THREE.BufferAttribute(emberVelocities, 3));
-    
+
+    emberGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(emberPositions, 3)
+    );
+    emberGeometry.setAttribute(
+      'velocity',
+      new THREE.BufferAttribute(emberVelocities, 3)
+    );
+
     const emberMaterial = new THREE.PointsMaterial({
       color: 0xff4500,
       size: 0.05,
       transparent: true,
       opacity: 0.8,
-      blending: THREE.AdditiveBlending
+      blending: THREE.AdditiveBlending,
     });
-    
+
     this.emberSystem = new THREE.Points(emberGeometry, emberMaterial);
     this.meshGroup.add(this.emberSystem);
   }
@@ -255,23 +270,26 @@ export class VolumetricFire {
     const smokeCount = 30;
     const smokeGeometry = new THREE.BufferGeometry();
     const smokePositions = new Float32Array(smokeCount * 3);
-    
+
     for (let i = 0; i < smokeCount; i++) {
       const i3 = i * 3;
       smokePositions[i3] = (Math.random() - 0.5) * 1;
       smokePositions[i3 + 1] = this.options.height + Math.random() * 2;
       smokePositions[i3 + 2] = (Math.random() - 0.5) * 1;
     }
-    
-    smokeGeometry.setAttribute('position', new THREE.BufferAttribute(smokePositions, 3));
-    
+
+    smokeGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(smokePositions, 3)
+    );
+
     const smokeMaterial = new THREE.PointsMaterial({
       color: 0x555555,
       size: 0.2,
       transparent: true,
-      opacity: 0.3
+      opacity: 0.3,
     });
-    
+
     this.smokeSystem = new THREE.Points(smokeGeometry, smokeMaterial);
     this.meshGroup.add(this.smokeSystem);
   }
@@ -280,12 +298,12 @@ export class VolumetricFire {
   _onMouseMove(event) {
     const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
     const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    
+
     this.mouseSpeed = Math.sqrt(
-      Math.pow(mouseX - this.lastMouseX, 2) + 
-      Math.pow(mouseY - this.lastMouseY, 2)
+      Math.pow(mouseX - this.lastMouseX, 2) +
+        Math.pow(mouseY - this.lastMouseY, 2)
     );
-    
+
     this.mouse.x = mouseX;
     this.mouse.y = mouseY;
     this.lastMouseX = mouseX;
@@ -295,31 +313,31 @@ export class VolumetricFire {
   // Update the fire animation
   update(deltaTime) {
     this.time += deltaTime * this.options.speed;
-    
+
     // Update shader uniforms
     if (this.flameMaterial) {
       this.flameMaterial.uniforms.time.value = this.time;
-      
+
       // Add mouse interactivity
       if (this.options.interactive) {
         const mouseInfluence = this.mouseSpeed * 2;
-        this.flameMaterial.uniforms.turbulence.value = 
+        this.flameMaterial.uniforms.turbulence.value =
           this.options.turbulence + mouseInfluence;
-        this.flameMaterial.uniforms.intensity.value = 
+        this.flameMaterial.uniforms.intensity.value =
           this.options.intensity + mouseInfluence * 0.5;
       }
     }
-    
+
     // Update ember particles
     if (this.emberSystem) {
       const positions = this.emberSystem.geometry.attributes.position.array;
       const velocities = this.emberSystem.geometry.attributes.velocity.array;
-      
+
       for (let i = 0; i < positions.length; i += 3) {
         positions[i] += velocities[i];
         positions[i + 1] += velocities[i + 1];
         positions[i + 2] += velocities[i + 2];
-        
+
         // Reset particles that go too high
         if (positions[i + 1] > this.options.height + 2) {
           positions[i] = (Math.random() - 0.5) * 2;
@@ -327,17 +345,17 @@ export class VolumetricFire {
           positions[i + 2] = (Math.random() - 0.5) * 2;
         }
       }
-      
+
       this.emberSystem.geometry.attributes.position.needsUpdate = true;
     }
-    
+
     // Update smoke particles
     if (this.smokeSystem) {
       const positions = this.smokeSystem.geometry.attributes.position.array;
-      
+
       for (let i = 0; i < positions.length; i += 3) {
         positions[i + 1] += 0.01;
-        
+
         // Reset smoke particles
         if (positions[i + 1] > this.options.height + 4) {
           positions[i] = (Math.random() - 0.5) * 1;
@@ -345,10 +363,10 @@ export class VolumetricFire {
           positions[i + 2] = (Math.random() - 0.5) * 1;
         }
       }
-      
+
       this.smokeSystem.geometry.attributes.position.needsUpdate = true;
     }
-    
+
     // Decay mouse speed
     this.mouseSpeed *= 0.95;
   }
@@ -363,7 +381,7 @@ export class VolumetricFire {
     if (this.flameMaterial) {
       this.flameMaterial.dispose();
     }
-    
+
     this.meshGroup.traverse((child) => {
       if (child.geometry) {
         child.geometry.dispose();
@@ -372,7 +390,7 @@ export class VolumetricFire {
         child.material.dispose();
       }
     });
-    
+
     if (this.options.interactive) {
       window.removeEventListener('mousemove', this._onMouseMove.bind(this));
     }
