@@ -1,9 +1,9 @@
-import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
-import { NavBar } from "../components/NavBar";
-import { Hero } from "../components/Hero";
-import { ValueProps } from "../components/ValueProps";
-import { Footer } from "../components/Footer";
+import { component$ } from '@builder.io/qwik';
+import type { DocumentHead } from '@builder.io/qwik-city';
+import { NavBar } from '../components/NavBar';
+import { Hero } from '../components/Hero';
+import { ValueProps } from '../components/ValueProps';
+import { Footer } from '../components/Footer';
 
 export default component$(() => {
   return (
@@ -41,21 +41,21 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "AISOLUTIONS - Transform AI Potential into Business Value",
+  title: 'AISOLUTIONS - Transform AI Potential into Business Value',
   meta: [
     {
-      name: "description",
+      name: 'description',
       content:
-        "Transform AI potential into business value with live demos, expert guidance, and MVP blueprints.",
+        'Transform AI potential into business value with live demos, expert guidance, and MVP blueprints.',
     },
     {
-      property: "og:title",
-      content: "AISOLUTIONS - Transform AI Potential into Business Value",
+      property: 'og:title',
+      content: 'AISOLUTIONS - Transform AI Potential into Business Value',
     },
     {
-      property: "og:description",
+      property: 'og:description',
       content:
-        "Transform AI potential into business value with live demos, expert guidance, and MVP blueprints.",
+        'Transform AI potential into business value with live demos, expert guidance, and MVP blueprints.',
     },
   ],
 };

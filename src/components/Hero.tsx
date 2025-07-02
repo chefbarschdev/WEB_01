@@ -1,5 +1,5 @@
-import { component$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
+import { component$ } from '@builder.io/qwik';
+import { Link } from '@builder.io/qwik-city';
 
 export const Hero = component$(() => {
   return (
@@ -7,7 +7,7 @@ export const Hero = component$(() => {
       <div class="max-w-6xl mx-auto px-4 text-center">
         <div class="animate-fade-in">
           <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            Transform AI Potential into{" "}
+            Transform AI Potential into{' '}
             <span class="text-yellow-300">Business Value</span>
           </h1>
 

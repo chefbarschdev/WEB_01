@@ -9,20 +9,18 @@ export default component$(() => {
   return (
     <div class="min-h-screen bg-red-600">
       <NavBar />
-      
+
       {/* Demo Header */}
       <section class="bg-red-600 text-white py-16">
         <div class="max-w-6xl mx-auto px-4 text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">
-            🚀 Live AI Demos
-          </h1>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">🚀 Live AI Demos</h1>
           <p class="text-xl text-red-100 max-w-3xl mx-auto">
-            Experience our AI solutions in action. These are real, working demos 
+            Experience our AI solutions in action. These are real, working demos
             that showcase the power and potential of AI for your business.
           </p>
         </div>
       </section>
-      
+
       <DemoShowcase />
       <CTAJoinWaitlist />
       <Footer />
@@ -35,7 +33,8 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content: 'Experience our AI solutions in action with live, interactive demos. See how AI can transform your business.',
+      content:
+        'Experience our AI solutions in action with live, interactive demos. See how AI can transform your business.',
     },
     {
       property: 'og:title',
@@ -43,7 +42,8 @@ export const head: DocumentHead = {
     },
     {
       property: 'og:description',
-      content: 'Experience our AI solutions in action with live, interactive demos.',
+      content:
+        'Experience our AI solutions in action with live, interactive demos.',
     },
   ],
 };

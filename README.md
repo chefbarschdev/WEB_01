@@ -38,11 +38,13 @@ src/
 ## 🎨 Design System
 
 ### Color Themes
+
 - **Landing Page**: Blue (`bg-blue-600` - #0D6EFD)
 - **Demo Page**: Red (`bg-red-600` - #DC3545)
 - **Wait-list Page**: Green (`bg-green-600` - #198754)
 
 ### Components
+
 - White cards with subtle shadows
 - Rounded corners (`rounded-2xl`)
 - Hover animations (`hover:scale-105`)
@@ -51,28 +53,33 @@ src/
 ## 🛠️ Setup Instructions
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (recommended) or npm
 
 ### Installation
 
 1. **Clone and install dependencies:**
+
    ```bash
    cd path/to/project
    pnpm install
    ```
 
 2. **Start development server:**
+
    ```bash
    pnpm dev
    ```
 
 3. **Build for production:**
+
    ```bash
    pnpm build
    ```
 
 4. **Preview production build:**
+
    ```bash
    pnpm preview
    ```
@@ -85,7 +92,9 @@ src/
 ## 🔧 Environment Setup
 
 ### Supabase Configuration
+
 Create a `.env.local` file:
+
 ```env
 SUPABASE_URL=your_supabase_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -93,6 +102,7 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
 ### Database Schema
+
 ```sql
 CREATE TABLE waitlist (
   id SERIAL PRIMARY KEY,
@@ -120,18 +130,21 @@ CREATE TABLE waitlist (
 ## 📱 Pages Overview
 
 ### 1. Landing Page (`/`)
+
 - Hero section with value proposition
 - Three key benefits (Speed, Cost Savings, Expertise)
 - Company logos and social proof
 - Clear CTAs to demo and wait-list
 
 ### 2. Demo Page (`/demo/`)
+
 - Interactive AI chatbot demo
 - Tabbed interface for future demos
 - Strong CTA to join wait-list
 - Live demonstration of capabilities
 
 ### 3. Wait-list Page (`/join/`)
+
 - Email capture form with validation
 - Customer testimonials
 - FAQ section
@@ -140,11 +153,13 @@ CREATE TABLE waitlist (
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
+
 1. Connect GitHub repository
 2. Add environment variables
 3. Deploy automatically on push
 
 ### Manual Build
+
 ```bash
 pnpm build
 pnpm preview
@@ -178,6 +193,7 @@ pnpm preview
 ## 📞 Support
 
 For questions or issues:
+
 - Email: support@aisolutions.com
 - Documentation: [Internal Wiki]
 - Slack: #dev-aisolutions

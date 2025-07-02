@@ -5,21 +5,24 @@ export const ValueProps = component$(() => {
     {
       icon: '⚡',
       title: 'Lightning Speed',
-      description: 'Deploy AI solutions 10x faster than traditional development. From concept to MVP in weeks, not months.',
-      highlight: 'Speed'
+      description:
+        'Deploy AI solutions 10x faster than traditional development. From concept to MVP in weeks, not months.',
+      highlight: 'Speed',
     },
     {
       icon: '💰',
       title: 'Cost Savings',
-      description: 'Reduce development costs by 70% with our proven AI frameworks and pre-built components.',
-      highlight: 'Cost-Save'
+      description:
+        'Reduce development costs by 70% with our proven AI frameworks and pre-built components.',
+      highlight: 'Cost-Save',
     },
     {
       icon: '🎯',
       title: 'Expert Guidance',
-      description: 'Get direct access to AI specialists who have built solutions for Fortune 500 companies.',
-      highlight: 'Expertise'
-    }
+      description:
+        'Get direct access to AI specialists who have built solutions for Fortune 500 companies.',
+      highlight: 'Expertise',
+    },
   ];
 
   return (
@@ -30,13 +33,14 @@ export const ValueProps = component$(() => {
             Why Choose AISOLUTIONS?
           </h2>
           <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-            We don't just build AI solutions – we accelerate your entire digital transformation journey.
+            We don't just build AI solutions – we accelerate your entire digital
+            transformation journey.
           </p>
         </div>
-        
+
         <div class="grid md:grid-cols-3 gap-8">
           {valueProps.map((prop, index) => (
-            <div 
+            <div
               key={index}
               class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-slide-up"
               style={{ animationDelay: `${index * 0.2}s` }}
@@ -48,13 +52,11 @@ export const ValueProps = component$(() => {
               <h4 class="text-xl font-semibold text-gray-800 mb-3">
                 {prop.title}
               </h4>
-              <p class="text-gray-600 leading-relaxed">
-                {prop.description}
-              </p>
+              <p class="text-gray-600 leading-relaxed">{prop.description}</p>
             </div>
           ))}
         </div>
-        
+
         {/* Stats section */}
         <div class="mt-16 bg-white rounded-2xl p-8 shadow-lg">
           <div class="grid md:grid-cols-4 gap-8 text-center">
