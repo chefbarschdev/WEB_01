@@ -18,7 +18,7 @@ src/
 │   ├── index.tsx          # Landing page (blue theme)
 │   ├── demo/index.tsx     # Demo showcase (red theme)
 │   ├── join/index.tsx     # Wait-list page (green theme)
-│   └── api/join-waitlist/ # API endpoint for form submissions
+│   └── api/waitlist/      # API endpoint for form submissions
 ├── components/
 │   ├── NavBar.tsx         # Navigation component
 │   ├── Hero.tsx           # Hero section with CTA
@@ -26,7 +26,8 @@ src/
 │   ├── DemoShowcase.tsx   # Demo tabs container
 │   ├── Chatbot.tsx        # Interactive AI chatbot
 │   ├── CTAJoinWaitlist.tsx# Call-to-action banner
-│   ├── WaitlistForm.tsx   # Email capture form
+│   ├── WaitlistMachine.tsx# Waitlist state machine component
+│   ├── WaitlistForm.tsx   # Legacy form component
 │   ├── Testimonials.tsx   # Social proof section
 │   ├── FAQ.tsx            # Frequently asked questions
 │   └── Footer.tsx         # Site footer

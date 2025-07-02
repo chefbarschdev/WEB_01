@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { NavBar } from '../../components/NavBar';
-import { WaitlistForm } from '../../components/WaitlistForm';
+import { WaitlistMachine } from '../../components/WaitlistMachine';
 import { Testimonials } from '../../components/Testimonials';
 import { FAQ } from '../../components/FAQ';
 import { Footer } from '../../components/Footer';
@@ -27,7 +27,7 @@ export default component$(() => {
 
       {/* Main Content */}
       <div class="bg-white">
-        <WaitlistForm />
+        <WaitlistMachine />
         <Testimonials />
         <FAQ />
       </div>
