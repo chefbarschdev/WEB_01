@@ -89,10 +89,9 @@ export const Footer = component$(() => {
           <div>
             <h3 class="text-lg font-semibold mb-4">Contact</h3>
             <ul class="space-y-2 text-gray-400">
-              <li>📧 hello@aisolutions.com</li>
-              <li>📞 +1 (555) 123-4567</li>
-              <li>🌍 San Francisco, CA</li>
-              <li>⏰ 24/7 Support</li>
+              <li>📧 tim.woell@gmail.com</li>
+              <li>📞 Call or WhatsApp: +49&nbsp;151&nbsp;64438355</li>
+              <li>🌍 Tim Wöllmann - AI Developer</li>
             </ul>
           </div>
         </div>
