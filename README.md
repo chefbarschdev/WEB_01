@@ -111,6 +111,12 @@ PUBLIC_SUPABASE_URL=$SUPABASE_URL
 PUBLIC_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
 ```
 
+The server checks `process.env`, `Deno.env`, `Netlify.env.get()` and
+`import.meta.env` when resolving these variables so it works in both local and
+Edge environments. If you're using Netlify, run `netlify env:import .env.local`
+and start your dev server with `netlify dev --context production` to inject the
+variables during local development.
+
 The `SUPABASE_SERVICE_ROLE_KEY` is used during server start to automatically
 create the `waitlist` table if it doesn't exist. The waitlist API will fall back
 to `SUPABASE_ANON_KEY` if the service role key is not set. When this happens a
