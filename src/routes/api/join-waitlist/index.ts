@@ -1,12 +1,5 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
-import { createClient } from '@supabase/supabase-js';
-
-// Supabase client using server-side credentials. Keys are loaded from
-// environment variables defined in `.env.local`.
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseServerClient } from '~/lib/supabase';
 
 interface WaitlistData {
   email: string;
@@ -24,6 +17,8 @@ export const onPost: RequestHandler = async ({ json, request }) => {
       request.headers.get('cf-connecting-ip') ||
       request.headers.get('x-real-ip') ||
       'unknown';
+
+    const supabase = createSupabaseServerClient();
 
     // Validate required fields
     if (
