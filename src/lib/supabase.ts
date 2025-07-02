@@ -19,5 +19,8 @@ export function createSupabaseServerClient() {
     );
   }
 
-  return createClient(url, key);
+  return createClient(url, key, {
+    auth: { persistSession: false },
+    global: { fetch },
+  });
 }

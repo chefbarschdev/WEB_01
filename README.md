@@ -109,6 +109,10 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 # Optional PUBLIC_ variants are also supported
 PUBLIC_SUPABASE_URL=$SUPABASE_URL
 PUBLIC_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
+
+# Qwik exposes only variables prefixed with PUBLIC_ to the browser.
+# When deploying to Netlify ensure these vars exist or map your
+# SUPABASE_URL and SUPABASE_ANON_KEY values to the PUBLIC_ versions.
 ```
 
 The `SUPABASE_SERVICE_ROLE_KEY` is used during server start to automatically
