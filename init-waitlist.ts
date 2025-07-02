@@ -13,7 +13,7 @@ async function fileExists(p: string) {
 
 const root = process.cwd();
 const machinePath = path.join(root, 'src/components/WaitlistMachine.tsx');
-const apiPath = path.join(root, 'src/routes/api/waitlist/index.ts');
+const apiPath = path.join(root, 'src/routes/api/join-waitlist/index.ts');
 const joinPath = path.join(root, 'src/routes/join/index.tsx');
 
 async function ensureMachine() {
@@ -33,7 +33,7 @@ export const WaitlistMachine = component$(() => {
     state.value = 'submitting';
     timerVisible.value = true;
     try {
-      const res = await fetch('/api/waitlist', {
+      const res = await fetch('/api/join-waitlist', {
         method: 'POST',
         body: JSON.stringify({ email: email.value }),
         headers: { 'Content-Type': 'application/json' }

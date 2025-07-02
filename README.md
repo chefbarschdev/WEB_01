@@ -18,7 +18,7 @@ src/
 │   ├── index.tsx          # Landing page (blue theme)
 │   ├── demo/index.tsx     # Demo showcase (red theme)
 │   ├── join/index.tsx     # Wait-list page (green theme)
-│   └── api/waitlist/      # API endpoint for form submissions
+│   └── api/join-waitlist/ # Waitlist API endpoint
 ├── components/
 │   ├── NavBar.tsx         # Navigation component
 │   ├── Hero.tsx           # Hero section with CTA
@@ -112,6 +112,10 @@ to `SUPABASE_ANON_KEY` if the service role key is not set. When this happens a
 warning is logged but the API continues to function. Ensure the built-in
 `execute_sql` RPC is enabled in your Supabase project so the initialization can
 run successfully. Duplicate sign ups are detected and return a `409` response.
+
+If `SUPABASE_URL` and both API keys are missing, the server throws an error so
+be sure to define at least one of `SUPABASE_SERVICE_ROLE_KEY` or
+`SUPABASE_ANON_KEY`.
 
 When deploying to Netlify, define these variables in your site's **Environment Variables** settings so the edge functions can connect to Supabase during runtime.
 

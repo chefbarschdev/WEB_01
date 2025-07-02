@@ -6,9 +6,13 @@ export function createSupabaseServerClient() {
   const anonKey = process.env.SUPABASE_ANON_KEY;
   const key = serviceKey || anonKey;
 
-  if (!url || !key) {
+  if (!url) {
+    throw new Error('SUPABASE_URL environment variable is not set');
+  }
+
+  if (!serviceKey && !anonKey) {
     throw new Error(
-      'Missing Supabase environment variables (SUPABASE_URL and API key)'
+      'No Supabase API key provided: set SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY'
     );
   }
 

@@ -84,10 +84,7 @@ export const onPost: RequestHandler = async ({ json, request, headers }) => {
   } catch (error) {
     console.error('API error:', error);
     let message = 'Internal server error';
-    if (
-      error instanceof Error &&
-      error.message.includes('Supabase environment variables')
-    ) {
+    if (error instanceof Error && error.message.includes('Supabase')) {
       message = error.message;
     }
     json(500, {
