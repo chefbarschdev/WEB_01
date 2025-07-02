@@ -1,25 +1,21 @@
 import { type RequestHandler } from '@builder.io/qwik-city';
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseServerClient } from '~/lib/supabase';
 
 export const onPost: RequestHandler = async ({ request, json }) => {
   const { email } = await request.json();
 
-  const url = process.env.SUPABASE_URL;
-  const anon = process.env.SUPABASE_ANON_KEY;
+  try {
+    const supabase = createSupabaseServerClient();
+    const { error } = await supabase.from('waitlist').insert({ email });
 
-  if (!url || !anon) {
-    json(500, { error: 'Supabase env vars missing' });
-    return;
+    if (error) {
+      json(500, { error: error.message });
+      return;
+    }
+
+    json(200, { success: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    json(500, { error: message });
   }
-
-  const supabase = createClient(url, anon);
-
-  const { error } = await supabase.from('waitlist').insert({ email });
-
-  if (error) {
-    json(500, { error: error.message });
-    return;
-  }
-
-  json(200, { success: true });
 };
