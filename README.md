@@ -113,7 +113,9 @@ warning is logged but the API continues to function. Ensure the built-in
 `execute_sql` RPC is enabled in your Supabase project so the initialization can
 run successfully. Duplicate sign ups are detected and return a `409` response.
 
-When deploying to Netlify, define these variables in your site's **Environment Variables** settings so the edge functions can connect to Supabase during runtime.
+Ensure **Row Level Security** is enabled for the `waitlist` table since the anon key is exposed on the frontend. The initialization script creates simple insert/select policies for you.
+
+When deploying to Netlify, you can install the official **Supabase Extension** from the Netlify Integrations catalog. The extension automatically injects `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` and `SUPABASE_ANON_KEY` into both your deploys and `netlify dev` sessions. This removes the need to manually copy `.env` files. If you prefer not to use the extension, define these variables manually in your site's **Environment Variables** settings so the edge functions can connect to Supabase during runtime.
 
 Set `ALLOWED_ORIGIN` to your site's domain to control which origin may call the waitlist API. Example:
 
