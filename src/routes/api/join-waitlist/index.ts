@@ -10,8 +10,9 @@ interface WaitlistData {
 }
 
 export const onPost: RequestHandler = async ({ json, request, headers }) => {
-  // Allow cross-origin requests
-  headers.set('Access-Control-Allow-Origin', '*');
+  // Allow cross-origin requests from the configured origin
+  const allowedOrigin = process.env.ALLOWED_ORIGIN || '*';
+  headers.set('Access-Control-Allow-Origin', allowedOrigin);
   try {
     const data: WaitlistData = await request.json();
     const ip =
@@ -83,7 +84,8 @@ export const onPost: RequestHandler = async ({ json, request, headers }) => {
 
 // Handle preflight requests for CORS
 export const onOptions: RequestHandler = async ({ headers }) => {
-  headers.set('Access-Control-Allow-Origin', '*');
+  const allowedOrigin = process.env.ALLOWED_ORIGIN || '*';
+  headers.set('Access-Control-Allow-Origin', allowedOrigin);
   headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
   headers.set('Access-Control-Allow-Headers', 'Content-Type');
 };
