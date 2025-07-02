@@ -30,19 +30,21 @@ export const onPost: RequestHandler = async ({ json, request, headers }) => {
       !data.pain ||
       !data.name
     ) {
-      return json(400, {
+      json(400, {
         success: false,
         error: 'Missing required fields',
       });
+      return;
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      return json(400, {
+      json(400, {
         success: false,
         error: 'Invalid email format',
       });
+      return;
     }
 
     const { error } = await supabase.from('waitlist').insert({
@@ -57,22 +59,25 @@ export const onPost: RequestHandler = async ({ json, request, headers }) => {
 
     if (error) {
       console.error('Supabase error:', error);
-      return json(500, {
+      json(500, {
         success: false,
         error: 'Database error',
       });
+      return;
     }
 
-    return json(200, {
+    json(200, {
       success: true,
       message: 'Successfully joined waitlist',
     });
+    return;
   } catch (error) {
     console.error('API error:', error);
-    return json(500, {
+    json(500, {
       success: false,
       error: 'Internal server error',
     });
+    return;
   }
 };
 
