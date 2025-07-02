@@ -93,7 +93,11 @@ src/
 
 ### Supabase Configuration
 
-Create a `.env.local` file with your Supabase credentials:
+Copy `.env.example` to `.env.local` and fill in your Supabase credentials:
+
+```bash
+cp .env.example .env.local
+```
 
 ```env
 SUPABASE_URL=https://tpyfvcbudxtjqowwkmhu.supabase.co
