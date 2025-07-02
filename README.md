@@ -107,7 +107,8 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
 The `SUPABASE_SERVICE_ROLE_KEY` is used during server start to automatically
-create the `waitlist` table if it doesn't exist. Ensure the built-in
+create the `waitlist` table if it doesn't exist. The waitlist API will fall back
+to `SUPABASE_ANON_KEY` if the service role key is not set. Ensure the built-in
 `execute_sql` RPC is enabled in your Supabase project so the initialization can
 run successfully.
 
