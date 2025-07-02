@@ -101,6 +101,11 @@ SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
+The `SUPABASE_SERVICE_ROLE_KEY` is used during server start to automatically
+create the `waitlist` table if it doesn't exist. Ensure the built-in
+`execute_sql` RPC is enabled in your Supabase project so the initialization can
+run successfully.
+
 When deploying to Netlify, define these variables in your site's **Environment Variables** settings so the edge functions can connect to Supabase during runtime.
 
 ### Database Schema
