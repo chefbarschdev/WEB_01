@@ -107,9 +107,11 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
 The `SUPABASE_SERVICE_ROLE_KEY` is used during server start to automatically
-create the `waitlist` table if it doesn't exist. Ensure the built-in
+create the `waitlist` table if it doesn't exist. The waitlist API will fall back
+to `SUPABASE_ANON_KEY` if the service role key is not set. When this happens a
+warning is logged but the API continues to function. Ensure the built-in
 `execute_sql` RPC is enabled in your Supabase project so the initialization can
-run successfully.
+run successfully. Duplicate sign ups are detected and return a `409` response.
 
 When deploying to Netlify, define these variables in your site's **Environment Variables** settings so the edge functions can connect to Supabase during runtime.
 
@@ -132,6 +134,11 @@ CREATE TABLE waitlist (
   ip_address TEXT,
   created_at TIMESTAMP DEFAULT NOW()
 );
+
+-- Basic Row Level Security policies
+ALTER TABLE waitlist ENABLE ROW LEVEL SECURITY;
+CREATE POLICY waitlist_insert ON waitlist FOR INSERT WITH CHECK (true);
+CREATE POLICY waitlist_select ON waitlist FOR SELECT USING (true);
 ```
 
 ## 📊 Performance Targets

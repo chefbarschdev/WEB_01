@@ -13,6 +13,8 @@ export const onPost: RequestHandler = async ({ json, request, headers }) => {
   // Allow cross-origin requests from the configured origin
   const allowedOrigin = process.env.ALLOWED_ORIGIN || '*';
   headers.set('Access-Control-Allow-Origin', allowedOrigin);
+  headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
   try {
     const data: WaitlistData = await request.json();
     const ip =
@@ -60,10 +62,17 @@ export const onPost: RequestHandler = async ({ json, request, headers }) => {
 
     if (error) {
       console.error('Supabase error:', error);
-      json(500, {
-        success: false,
-        error: 'Database error',
-      });
+      if (error.code === '23505') {
+        json(409, {
+          success: false,
+          error: 'Email already registered',
+        });
+      } else {
+        json(500, {
+          success: false,
+          error: 'Database error',
+        });
+      }
       return;
     }
 
@@ -74,9 +83,16 @@ export const onPost: RequestHandler = async ({ json, request, headers }) => {
     return;
   } catch (error) {
     console.error('API error:', error);
+    let message = 'Internal server error';
+    if (
+      error instanceof Error &&
+      error.message.includes('Supabase environment variables')
+    ) {
+      message = error.message;
+    }
     json(500, {
       success: false,
-      error: 'Internal server error',
+      error: message,
     });
     return;
   }
