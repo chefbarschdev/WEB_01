@@ -140,6 +140,22 @@ export const WaitlistMachine = component$(() => {
             </p>
           </div>
 
+          <div
+            class="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 p-4 rounded-lg mb-6"
+            role="alert"
+          >
+            <span class="font-semibold">⚠️ Not functional yet:</span>
+            Please reach out via
+            <a href="https://wa.me/4915164438355" class="underline font-medium">
+              WhatsApp
+            </a>
+            or
+            <a href="mailto:tim.woell@gmail.com" class="underline font-medium">
+              email
+            </a>
+            to join the wait-list.
+          </div>
+
           <form preventdefault:submit onSubmit$={submit} class="space-y-6">
             {errorMsg.value && (
               <div
