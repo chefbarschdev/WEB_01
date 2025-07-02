@@ -1,8 +1,12 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
+import { createClient } from '@supabase/supabase-js';
 
-// In a real implementation, you would import and configure Supabase here:
-// import { createClient } from '@supabase/supabase-js';
-// const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+// Supabase client using server-side credentials. Keys are loaded from
+// environment variables defined in `.env.local`.
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 interface WaitlistData {
   email: string;
@@ -15,6 +19,11 @@ interface WaitlistData {
 export const onPost: RequestHandler = async ({ json, request }) => {
   try {
     const data: WaitlistData = await request.json();
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('cf-connecting-ip') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
 
     // Validate required fields
     if (
@@ -41,44 +50,24 @@ export const onPost: RequestHandler = async ({ json, request }) => {
       return;
     }
 
-    // In a real implementation, you would insert into Supabase:
-    /*
-    const { error } = await supabase
-      .from('waitlist')
-      .insert({
-        email: data.email,
-        company: data.company,
-        size: data.size,
-        pain: data.pain,
-        name: data.name,
-        created_at: new Date().toISOString()
-      });
-    
+    const { error } = await supabase.from('waitlist').insert({
+      email: data.email,
+      company_name: data.company,
+      company_size: data.size,
+      pain_point: data.pain,
+      name: data.name,
+      ip_address: ip,
+      created_at: new Date().toISOString(),
+    });
+
     if (error) {
       console.error('Supabase error:', error);
       json(500, {
         success: false,
-        error: 'Database error'
+        error: 'Database error',
       });
       return;
     }
-    */
-
-    // For demo purposes, we'll just log the data and return success
-    console.log('Waitlist signup:', {
-      email: data.email,
-      company: data.company,
-      size: data.size,
-      pain: data.pain,
-      name: data.name,
-      timestamp: new Date().toISOString(),
-    });
-
-    // In a real implementation, you might also:
-    // 1. Send a welcome email
-    // 2. Add to email marketing list
-    // 3. Trigger analytics events
-    // 4. Send notifications to your team
 
     json(200, {
       success: true,

@@ -49,15 +49,17 @@ export const WaitlistForm = component$(() => {
     error.value = '';
 
     try {
-      // In real implementation, this would call your API endpoint
-      // const response = await fetch('/api/join-waitlist', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
+      const response = await fetch('/api/join-waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Request failed');
+      }
 
       sent.value = true;
       showCalendly.value = true;
