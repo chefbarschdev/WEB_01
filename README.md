@@ -220,6 +220,80 @@ pnpm preview
 - CORS configuration
 - Secure headers
 
+## 🚨 Lessons Learned: SSR & Netlify Deployment
+
+### Critical Deployment Guidelines
+
+Based on debugging sessions and successful deployments, follow these principles to avoid common pitfalls:
+
+#### ✅ DO: Keep It Simple
+
+1. **Minimal Polyfills**: Only add essential polyfills in `src/entry.netlify-edge.tsx`:
+   ```typescript
+   // Simple, working approach
+   globalThis.window = undefined;
+   globalThis.document = undefined;
+   globalThis.navigator = undefined;
+   ```
+
+2. **Avoid Complex Vite Configs**: Don't over-engineer `vite.config.ts` with excessive `define` statements:
+   ```typescript
+   // ❌ AVOID: Complex globalThis definitions
+   define: {
+     'globalThis.window': 'undefined',
+     'globalThis.document': 'undefined'
+   }
+   ```
+
+3. **Target Specific Issues**: Make minimal, focused changes like:
+   - Adding null checks for environment variables
+   - Moving build tools to dependencies when needed
+   - Simple SSR-safe conditionals
+
+#### ❌ DON'T: Over-Engineer Solutions
+
+1. **Complex Property Descriptors**: Avoid elaborate `Object.defineProperty` setups
+2. **Excessive Polyfills**: Don't polyfill everything "just in case"
+3. **Multiple SSR Strategies**: Stick to one consistent approach
+4. **Premature Optimization**: Fix the actual error, not theoretical ones
+
+#### 🔧 Proven Working Patterns
+
+Reference these successful commits for guidance:
+- `55bbb36`: "Fix TypeScript errors in initSupabase.ts for Netlify deployment"
+- `8e791a8`: "Move ESLint and build tools to dependencies for Netlify"
+
+#### 🐛 Common Error Patterns
+
+**"ReferenceError: window is not defined"**
+- **Root Cause**: Browser APIs accessed during SSR build
+- **Solution**: Apply polyfills at the very top of entry files, before imports
+- **Prevention**: Use `typeof window !== 'undefined'` checks in components
+
+**Build Tool Missing in Production**
+- **Root Cause**: Dev dependencies not available in Netlify build
+- **Solution**: Move essential build tools to `dependencies` in `package.json`
+
+#### 📋 Deployment Checklist
+
+- [ ] Local build passes (`npm run build`)
+- [ ] Environment variables configured in Netlify
+- [ ] No complex polyfills or Vite configurations
+- [ ] Build tools in `dependencies` if needed by production
+- [ ] Test with `netlify dev` locally
+- [ ] Commit message describes the specific fix
+
+#### 🎯 Philosophy
+
+**"Simple solutions that work > Complex solutions that might work"**
+
+When debugging deployment issues:
+1. Start with the simplest possible fix
+2. Reference previous working commits
+3. Avoid adding multiple "safety" measures at once
+4. Test locally before deploying
+5. Make one focused change per commit
+
 ## 🤝 Contributing
 
 1. Follow the existing code style
@@ -228,6 +302,7 @@ pnpm preview
 4. Optimize for performance
 5. Update documentation
 6. Run `pnpm lint` before committing
+7. **Follow the SSR deployment guidelines above**
 
 ## 💡 Improvement Ideas
 
