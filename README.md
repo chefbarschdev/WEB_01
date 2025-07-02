@@ -103,6 +103,12 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
 When deploying to Netlify, define these variables in your site's **Environment Variables** settings so the edge functions can connect to Supabase during runtime.
 
+Set `ALLOWED_ORIGIN` to your site's domain to control which origin may call the waitlist API. Example:
+
+```env
+ALLOWED_ORIGIN=https://example.com
+```
+
 ### Database Schema
 
 ```sql
