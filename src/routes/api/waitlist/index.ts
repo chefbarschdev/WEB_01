@@ -8,7 +8,8 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   const anon = process.env.SUPABASE_ANON_KEY;
 
   if (!url || !anon) {
-    return json(500, { error: 'Supabase env vars missing' });
+    json(500, { error: 'Supabase env vars missing' });
+    return;
   }
 
   const supabase = createClient(url, anon);
@@ -16,8 +17,9 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   const { error } = await supabase.from('waitlist').insert({ email });
 
   if (error) {
-    return json(500, { error: error.message });
+    json(500, { error: error.message });
+    return;
   }
 
-  return json(200, { success: true });
+  json(200, { success: true });
 };

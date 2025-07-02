@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal, $ } from '@builder.io/qwik';
 
 export type WaitlistState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -8,7 +8,7 @@ export const WaitlistMachine = component$(() => {
   const timerVisible = useSignal(false);
   const errorMsg = useSignal('');
 
-  const submit = async () => {
+  const submit = $(async () => {
     if (state.value === 'submitting') return;
     state.value = 'submitting';
     timerVisible.value = true;
@@ -29,14 +29,15 @@ export const WaitlistMachine = component$(() => {
       }
 
       state.value = 'success';
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Insert failed:', err);
-      errorMsg.value = err.message;
+      const message = err instanceof Error ? err.message : String(err);
+      errorMsg.value = message;
       state.value = 'error';
     } finally {
       timerVisible.value = false;
     }
-  };
+  });
 
   return (
     <div>
