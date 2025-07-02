@@ -1,8 +1,5 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
-
-// In a real implementation, you would import and configure Supabase here:
-// import { createClient } from '@supabase/supabase-js';
-// const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+import { createSupabaseServerClient } from '~/lib/supabase';
 
 interface WaitlistData {
   email: string;
@@ -12,9 +9,18 @@ interface WaitlistData {
   name: string;
 }
 
-export const onPost: RequestHandler = async ({ json, request }) => {
+export const onPost: RequestHandler = async ({ json, request, headers }) => {
+  // Allow cross-origin requests
+  headers.set('Access-Control-Allow-Origin', '*');
   try {
     const data: WaitlistData = await request.json();
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('cf-connecting-ip') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
+
+    const supabase = createSupabaseServerClient();
 
     // Validate required fields
     if (
@@ -24,69 +30,46 @@ export const onPost: RequestHandler = async ({ json, request }) => {
       !data.pain ||
       !data.name
     ) {
-      json(400, {
+      return json(400, {
         success: false,
         error: 'Missing required fields',
       });
-      return;
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      json(400, {
+      return json(400, {
         success: false,
         error: 'Invalid email format',
       });
-      return;
     }
 
-    // In a real implementation, you would insert into Supabase:
-    /*
-    const { error } = await supabase
-      .from('waitlist')
-      .insert({
-        email: data.email,
-        company: data.company,
-        size: data.size,
-        pain: data.pain,
-        name: data.name,
-        created_at: new Date().toISOString()
-      });
-    
-    if (error) {
-      console.error('Supabase error:', error);
-      json(500, {
-        success: false,
-        error: 'Database error'
-      });
-      return;
-    }
-    */
-
-    // For demo purposes, we'll just log the data and return success
-    console.log('Waitlist signup:', {
+    const { error } = await supabase.from('waitlist').insert({
       email: data.email,
-      company: data.company,
-      size: data.size,
-      pain: data.pain,
+      company_name: data.company,
+      company_size: data.size,
+      pain_point: data.pain,
       name: data.name,
-      timestamp: new Date().toISOString(),
+      ip_address: ip,
+      created_at: new Date().toISOString(),
     });
 
-    // In a real implementation, you might also:
-    // 1. Send a welcome email
-    // 2. Add to email marketing list
-    // 3. Trigger analytics events
-    // 4. Send notifications to your team
+    if (error) {
+      console.error('Supabase error:', error);
+      return json(500, {
+        success: false,
+        error: 'Database error',
+      });
+    }
 
-    json(200, {
+    return json(200, {
       success: true,
       message: 'Successfully joined waitlist',
     });
   } catch (error) {
     console.error('API error:', error);
-    json(500, {
+    return json(500, {
       success: false,
       error: 'Internal server error',
     });
