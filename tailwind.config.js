@@ -1,14 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
         primary: {
-          blue: '#0D6EFD',
-          red: '#DC3545',
-          green: '#198754'
-        }
+          blue: "#60a5fa",
+          red: "#f87171",
+          green: "#34d399",
+        },
+        light: {
+          background: "#f8fafc",
+        },
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
