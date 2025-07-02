@@ -7,8 +7,9 @@ import { createClient } from '@supabase/supabase-js';
  * Requires the built-in `execute_sql` RPC to be enabled.
  */
 export async function initSupabaseSchema() {
-  const url = process.env.SUPABASE_URL;
-  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = process.env.SUPABASE_URL || import.meta.env.SUPABASE_URL;
+  const serviceRole =
+    process.env.SUPABASE_SERVICE_ROLE_KEY || import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRole) {
     console.warn('Supabase environment variables are not set');

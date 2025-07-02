@@ -4,8 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 export const onPost: RequestHandler = async ({ request, json }) => {
   const { email } = await request.json();
 
-  const url = process.env.SUPABASE_URL;
-  const anon = process.env.SUPABASE_ANON_KEY;
+  const url = process.env.SUPABASE_URL || import.meta.env.SUPABASE_URL;
+  const anon = process.env.SUPABASE_ANON_KEY || import.meta.env.SUPABASE_ANON_KEY;
 
   if (!url || !anon) {
     json(500, { error: 'Supabase env vars missing' });
