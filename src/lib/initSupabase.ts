@@ -24,6 +24,10 @@ export async function initSupabaseSchema() {
 
   // Use service role if available, otherwise use anon key
   const key = serviceRole || anonKey;
+  if (!key) {
+    console.warn('No valid Supabase key found, skipping schema initialization');
+    return;
+  }
   const supabase = createClient(url, key);
 
   try {
@@ -55,6 +59,6 @@ export async function initSupabaseSchema() {
       console.log('✅ Waitlist table exists and is accessible');
     }
   } catch (err) {
-    console.error('Error during Supabase initialization:', err.message);
+    console.error('Error during Supabase initialization:', err instanceof Error ? err.message : String(err));
   }
 }
