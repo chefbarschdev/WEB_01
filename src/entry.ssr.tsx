@@ -16,6 +16,10 @@ import {
 } from '@builder.io/qwik/server';
 import { manifest } from '@qwik-client-manifest';
 import Root from './root';
+import { initSupabaseSchema } from './lib/initSupabase';
+
+// Ensure the required database schema exists on startup
+void initSupabaseSchema();
 
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
