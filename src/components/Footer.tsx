@@ -75,12 +75,12 @@ export const Footer = component$(() => {
                 </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/contact/"
                   class="text-gray-400 hover:text-white transition-colors"
                 >
-                  About Us
-                </a>
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>

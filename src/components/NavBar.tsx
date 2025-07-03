@@ -53,6 +53,16 @@ export const NavBar = component$(() => {
             >
               Wait-list
             </Link>
+            <Link
+              href="/contact/"
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/contact/')
+                  ? 'text-blue-600 bg-blue-50'
+                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              Contact
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -109,6 +119,16 @@ export const NavBar = component$(() => {
               }`}
             >
               Wait-list
+            </Link>
+            <Link
+              href="/contact/"
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/contact/')
+                  ? 'text-blue-600 bg-blue-50'
+                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+              }`}
+            >
+              Contact
             </Link>
           </div>
         </div>
