@@ -14,7 +14,8 @@ export async function initSupabaseSchema() {
     return;
   }
 
-  const supabase = getSupabaseClient();
+  // Cast to `any` to support the mock client implementation
+  const supabase = getSupabaseClient() as any;
 
   try {
     // Simple check if waitlist table exists by trying to query it

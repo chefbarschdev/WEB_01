@@ -60,12 +60,17 @@ export function getSupabaseClient() {
     );
   }
 
+  // The latest `@supabase/supabase-js` uses a single object to initialize the
+  // client. The installed TypeScript types still expect the old positional
+  // parameters, so we cast to `any` to avoid a compilation error while using
+  // the modern API shape.
+  // @ts-expect-error Supabase types may not yet support the object signature
   supabase = createClient({
     url,
     key,
     auth: { persistSession: false },
     global: { fetch },
-  });
+  }) as unknown as SupabaseClient;
 
   return supabase;
 }
