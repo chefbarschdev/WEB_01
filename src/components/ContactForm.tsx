@@ -25,7 +25,22 @@ export const ContactForm = component$(() => {
       error.value = 'Please enter a valid email address.';
       return;
     }
-    sent.value = true;
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to send message');
+      }
+      sent.value = true;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      error.value = message;
+    }
   });
 
   if (sent.value) {
