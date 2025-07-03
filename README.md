@@ -132,6 +132,19 @@ Set `ALLOWED_ORIGIN` to your site's domain to control which origin may call the 
 ALLOWED_ORIGIN=https://example.com
 ```
 
+### SMTP Configuration
+
+Configure SMTP credentials so the contact form can send email notifications:
+
+```env
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your_username
+SMTP_PASS=your_password
+# Optional override for the recipient address
+CONTACT_RECIPIENT=timnewlink@gmail.com
+```
+
 ### Database Schema
 
 ```sql
@@ -306,7 +319,7 @@ When debugging deployment issues:
 
 ## 💡 Improvement Ideas
 
-- Add a dedicated contact page with an embedded form.
+- ✅ Add a dedicated contact page with an embedded form.
 - Publish case studies or blog posts to showcase success stories.
 - Improve SEO by adding meta tags and structured data.
 
