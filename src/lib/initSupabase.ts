@@ -14,7 +14,7 @@ export async function initSupabaseSchema() {
     return;
   }
 
-  const supabase = getSupabaseClient();
+  const supabase = getSupabaseClient() as any;
 
   try {
     // Simple check if waitlist table exists by trying to query it

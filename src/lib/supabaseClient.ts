@@ -1,11 +1,11 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-// Mock Supabase client interface for testing
+// Minimal mock client used in development without real credentials
 interface MockSupabaseClient {
   from: (table: string) => {
     insert: (data: Record<string, unknown>) => Promise<{ data: { id: number } | null; error: null }>;
-    select: () => {
-      eq: () => {
+    select: (columns?: string, opts?: Record<string, unknown>) => Promise<{ data: unknown; error: null }> & {
+      eq: (column: string, value: unknown) => {
         single: () => Promise<{ data: null; error: null }>;
       };
     };
@@ -18,14 +18,14 @@ function createMockSupabaseClient(): MockSupabaseClient {
     from: (table: string) => ({
       insert: async (data: Record<string, unknown>) => {
         console.log(`[MOCK] Inserting into ${table}:`, data);
-        // Simulate successful insert
         return { data: { id: Math.random() }, error: null };
       },
-      select: () => ({
-        eq: () => ({
-          single: async () => ({ data: null, error: null })
+      select: () =>
+        Object.assign(Promise.resolve({ data: null, error: null }), {
+          eq: () => ({
+            single: async () => ({ data: null, error: null })
+          })
         })
-      })
     })
   };
 }
