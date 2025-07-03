@@ -46,7 +46,7 @@ export const WaitlistMachine = component$(() => {
     errorMsg.value = '';
 
     try {
-      const res = await fetch('/api/join-waitlist', {
+      const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

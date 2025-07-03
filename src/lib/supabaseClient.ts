@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 // Mock Supabase client interface for testing
 interface MockSupabaseClient {
@@ -30,7 +30,12 @@ function createMockSupabaseClient(): MockSupabaseClient {
   };
 }
 
-export function createSupabaseServerClient() {
+let supabase: SupabaseClient | MockSupabaseClient | null = null;
+
+export function getSupabaseClient() {
+  if (supabase) {
+    return supabase;
+  }
   const url = process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const anonKey =
@@ -45,7 +50,8 @@ export function createSupabaseServerClient() {
     } else {
       console.log('Using Supabase test mode');
     }
-    return createMockSupabaseClient();
+    supabase = createMockSupabaseClient();
+    return supabase;
   }
 
   if (!serviceKey) {
@@ -54,8 +60,10 @@ export function createSupabaseServerClient() {
     );
   }
 
-  return createClient(url, key, {
+  supabase = createClient(url, key, {
     auth: { persistSession: false },
     global: { fetch },
   });
+
+  return supabase;
 }
