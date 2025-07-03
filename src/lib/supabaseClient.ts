@@ -60,7 +60,9 @@ export function getSupabaseClient() {
     );
   }
 
-  supabase = createClient(url, key, {
+  supabase = createClient({
+    url,
+    key,
     auth: { persistSession: false },
     global: { fetch },
   });
