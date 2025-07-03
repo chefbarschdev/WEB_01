@@ -306,7 +306,7 @@ When debugging deployment issues:
 
 ## 💡 Improvement Ideas
 
-- Add a dedicated contact page with an embedded form.
+- ✅ Add a dedicated contact page with an embedded form.
 - Publish case studies or blog posts to showcase success stories.
 - Improve SEO by adding meta tags and structured data.
 
