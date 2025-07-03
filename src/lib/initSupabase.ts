@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from './supabaseClient';
 
 /**
  * Initialize the Supabase schema on server startup.
@@ -7,9 +7,6 @@ import { createClient } from '@supabase/supabase-js';
  * Requires the built-in `execute_sql` RPC to be enabled.
  */
 export async function initSupabaseSchema() {
-  const url = process.env.SUPABASE_URL;
-  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const anonKey = process.env.SUPABASE_ANON_KEY;
   const testMode = process.env.NODE_ENV === 'development' && process.env.SUPABASE_TEST_MODE === 'true';
 
   if (testMode) {
@@ -17,18 +14,8 @@ export async function initSupabaseSchema() {
     return;
   }
 
-  if (!url || (!serviceRole && !anonKey)) {
-    console.warn('Supabase environment variables are not set, skipping schema initialization');
-    return;
-  }
-
-  // Use service role if available, otherwise use anon key
-  const key = serviceRole || anonKey;
-  if (!key) {
-    console.warn('No valid Supabase key found, skipping schema initialization');
-    return;
-  }
-  const supabase = createClient(url, key);
+  // Cast to `any` to support the mock client implementation
+  const supabase = getSupabaseClient() as any;
 
   try {
     // Simple check if waitlist table exists by trying to query it
