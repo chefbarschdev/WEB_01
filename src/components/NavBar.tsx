@@ -63,6 +63,12 @@ export const NavBar = component$(() => {
             >
               Contact
             </Link>
+            <Link
+              href="/donate/"
+              class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 transition-colors"
+            >
+              Donate
+            </Link>
           </div>
 
           {/* Mobile menu button */}
