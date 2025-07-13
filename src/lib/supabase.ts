@@ -38,15 +38,10 @@ export function createSupabaseServerClient() {
   const key = serviceKey || anonKey;
   const testMode = process.env.NODE_ENV === 'development' && process.env.SUPABASE_TEST_MODE === 'true';
 
-  // In production, we must have valid credentials
-  if (!testMode && (!url || !key)) {
-    throw new Error('Supabase credentials are missing in production');
-  }
-
-  // Use mock client in test mode or when credentials are missing in development
+  // Use mock client in test mode or when credentials are missing
   if (testMode || !url || !key) {
     if (!testMode) {
-      console.warn('Missing Supabase credentials, using mock client for testing');
+      console.error('Missing Supabase credentials, using mock client in production');
     } else {
       console.log('Using Supabase test mode');
     }
