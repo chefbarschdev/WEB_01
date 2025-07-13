@@ -1,4 +1,14 @@
 import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
+import { loadStripe } from '@stripe/stripe-js';
+
+// Get the public Stripe key from environment variables
+declare global {
+  interface ImportMeta {
+    env: {
+      PUBLIC_STRIPE_PUBLISHABLE_KEY: string;
+    };
+  }
+}
 
 interface DonationData {
   amount: number;
@@ -9,7 +19,7 @@ interface DonationData {
 
 export const DonationForm = component$(() => {
   const donation = useStore<DonationData>({
-    amount: 100, // $1.00 in cents
+    amount: 1000, // $10.00 in cents
     name: '',
     email: '',
     message: ''
@@ -18,6 +28,7 @@ export const DonationForm = component$(() => {
   const isLoading = useSignal(false);
   const error = useSignal('');
   const success = useSignal(false);
+  const stripePromise = loadStripe(import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
   const handleDonate = $(async () => {
     if (isLoading.value) return;
@@ -37,17 +48,37 @@ export const DonationForm = component$(() => {
     error.value = '';
 
     try {
-      // In a real implementation, this would call your API endpoint
-      // const response = await fetch('/api/donate', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(donation)
-      // });
-      // const data = await response.json();
+      // Call your API endpoint to create a Checkout Session
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: donation.amount,
+          name: donation.name,
+          email: donation.email,
+          message: donation.message
+        })
+      });
       
-      // For now, we'll just simulate a successful donation
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      success.value = true;
+      if (!response.ok) {
+        throw new Error('Failed to create checkout session');
+      }
+      
+      const session = await response.json();
+      const stripe = await stripePromise;
+      
+      if (!stripe) {
+        throw new Error('Stripe failed to initialize');
+      }
+      
+      // Redirect to Stripe Checkout
+      const { error: stripeError } = await stripe.redirectToCheckout({
+        sessionId: session.id
+      });
+      
+      if (stripeError) {
+        throw stripeError;
+      }
     } catch (err) {
       error.value = 'An error occurred. Please try again.';
       console.error('Donation error:', err);
@@ -78,10 +109,10 @@ export const DonationForm = component$(() => {
   return (
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
       <div class="px-4 py-5 sm:p-6">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">Make a Donation</h3>
+        <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Make a Donation</h3>
         
         {error.value && (
-          <div class="mt-4 bg-red-50 border-l-4 border-red-400 p-4">
+          <div class="mt-4 bg-red-50 border-l-4 border-red-400 p-4 rounded mb-6">
             <div class="flex">
               <div class="flex-shrink-0">
                 <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -128,76 +159,90 @@ export const DonationForm = component$(() => {
             <p class="mt-2 text-sm text-gray-500">Minimum donation is $1.00</p>
           </div>
 
-          <div class="sm:col-span-6">
-            <label for="name" class="block text-sm font-medium text-gray-700">
-              Full Name <span class="text-red-500">*</span>
-            </label>
-            <div class="mt-1">
-              <input
-                type="text"
-                id="name"
-                value={donation.name}
-                onInput$={(e) => (donation.name = (e.target as HTMLInputElement).value)}
-                class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                required
-              />
+          <div class="space-y-4">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+                Full Name <span class="text-red-500">*</span>
+              </label>
+              <div class="mt-1">
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  value={donation.name}
+                  onInput$={(e) => (donation.name = (e.target as HTMLInputElement).value)}
+                  class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-3 px-4 border"
+                  placeholder="John Doe"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+                Email <span class="text-red-500">*</span>
+              </label>
+              <div class="mt-1">
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  value={donation.email}
+                  onInput$={(e) => (donation.email = (e.target as HTMLInputElement).value)}
+                  class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-3 px-4 border"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
+                Message (Optional)
+              </label>
+              <div class="mt-1">
+                <textarea
+                  id="message"
+                  rows={3}
+                  value={donation.message}
+                  onInput$={(e) => (donation.message = (e.target as HTMLTextAreaElement).value)}
+                  class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-3 px-4 border"
+                  placeholder="Add a personal message (optional)"
+                />
+              </div>
             </div>
           </div>
 
-          <div class="sm:col-span-6">
-            <label for="email" class="block text-sm font-medium text-gray-700">
-              Email <span class="text-red-500">*</span>
-            </label>
-            <div class="mt-1">
-              <input
-                type="email"
-                id="email"
-                value={donation.email}
-                onInput$={(e) => (donation.email = (e.target as HTMLInputElement).value)}
-                class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="sm:col-span-6">
-            <label for="message" class="block text-sm font-medium text-gray-700">
-              Message (Optional)
-            </label>
-            <div class="mt-1">
-              <textarea
-                id="message"
-                rows={3}
-                value={donation.message}
-                onInput$={(e) => (donation.message = (e.target as HTMLTextAreaElement).value)}
-                class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                placeholder="Leave a message of support..."
-              />
-            </div>
-          </div>
-
-          <div class="sm:col-span-6">
+          <div class="pt-2">
             <button
               type="button"
               onClick$={handleDonate}
-              disabled={isLoading.value}
-              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isLoading.value || donation.amount < 100 || !donation.name || !donation.email}
+              class="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-sm text-base font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
-              {isLoading.value ? 'Processing...' : `Donate $${(donation.amount / 100).toFixed(2)}`}
+              {isLoading.value ? (
+                <>
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                  </svg>
+                  Donate ${(donation.amount / 100).toFixed(2)}
+                </>
+              )}
             </button>
-            
-            <div class="mt-4 text-center text-sm text-gray-500">
-              <p>Secure payment processing by Stripe</p>
-              <div class="mt-2 flex justify-center">
-                <svg class="h-8 w-auto" viewBox="0 0 71 28">
-                  <g fill-rule="evenodd">
-                    <path d="M58.3 5.6h-3.6c-1 0-1.9.6-2.3 1.5l-6.7 16.3c-.2.6-.4 1.3-.4 1.3h-.1s-.2-.7-.4-1.3l-2.4-5.7-2.5 6c-.2.6-.4 1.3-.4 1.3h-.1s-.2-.7-.4-1.3L35.5 7c-.3-.8-1.2-1.4-2.2-1.4h-3.6c-.5 0-.9.4-1 .8l-5.2 15.7c-.1.4-.2.8-.2 1.2 0 .8.6 1.5 1.4 1.5h5.1c.9 0 1.7-.6 2-1.4l1.1-3.6h6.6l1.1 3.6c.3.8 1.1 1.4 2 1.4h5.1c.8 0 1.4-.7 1.4-1.5 0-.4-.1-.8-.2-1.2l-1.5-4.7 3.5-8.6c.2-.6.4-1.3.4-1.3h.1s.2.7.4 1.3l2.1 5.5 1.9-4.6c.4-1 .5-1.6.5-1.6h.1s-.2-.5-.8-.5zm-20.2 9.4l2-6.2h.1l2 6.2h-4.1z"></path>
-                    <path d="M13.5 5.6c-4.3 0-7.7 3.5-7.7 7.8 0 3.6 2.7 6.6 6.3 7.3.5.1.7-.2.7-.5 0-.2 0-1 0-1.9-.2 0-3.5.7-3.5-3.1 0-.7.3-1.3.7-1.8.7-.8 2-.8 2.5-.7.6.1 1.2.2 1.8.4.1-.1.3-.3.4-.5.6-.9.8-1.9.6-2.9-.8.1-1.6.1-2.4.1z"></path>
-                    <path d="M12.5 16.2c-3.7 0-6.6-3-6.6-6.6 0-3.7 3-6.6 6.6-6.6.7 0 1.3.1 2 .3-.9-.6-2-.9-3.1-.9-3.3 0-6 2.7-6 6s2.7 6 6 6c1.8 0 3.4-.8 4.5-2.1-.6.1-1.3.2-2 .2z"></path>
-                  </g>
-                </svg>
-              </div>
+            <div class="mt-4 flex items-center justify-center space-x-4">
+              <img src="https://js.stripe.com/v3/fingerprinted/img/visa-3659cf505ba7d0c8c864801b40434bbc.svg" alt="Visa" class="h-6" />
+              <img src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d884409413071ff2024c209ce9a98c4.svg" alt="Mastercard" class="h-6" />
+              <img src="https://js.stripe.com/v3/fingerprinted/img/amex-a49b82f46c5cd6a96a6e418a8c6c9f7b.svg" alt="American Express" class="h-6" />
             </div>
+            <p class="mt-3 text-xs text-gray-500 text-center">
+              Your payment is secure and encrypted. We never store any card details.
+            </p>
           </div>
         </div>
       </div>
