@@ -22,7 +22,7 @@ export const NavBar = component$(() => {
           </Link>
 
           {/* Navigation Links */}
-          <div class="hidden md:flex space-x-8">
+          <div class="hidden md:flex items-center space-x-8">
             <Link
               href="/"
               class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -89,7 +89,7 @@ export const NavBar = component$(() => {
           </div>
         </div>
         <div class={`md:hidden ${menuOpen.value ? 'block' : 'hidden'}`}>
-          <div class="flex flex-col space-y-2 py-2">
+          <div class="flex flex-col space-y-2 py-2 px-4">
             <Link
               href="/"
               class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -129,6 +129,12 @@ export const NavBar = component$(() => {
               }`}
             >
               Contact
+            </Link>
+            <Link
+              href="/donate/"
+              class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 transition-colors text-center"
+            >
+              Donate
             </Link>
           </div>
         </div>
