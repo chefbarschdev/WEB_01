@@ -1,12 +1,12 @@
-import { type RequestHandler } from '@builder.io/qwik-city';
+import type { RequestHandler } from '@builder.io/qwik-city';
 import Stripe from 'stripe';
 
 // Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
 });
 
-export const onPost: RequestHandler = async ({ request, json, error }) => {
+export const onPost: RequestHandler = async ({ request, json }) => {
   try {
     const body = await request.json();
     const { amount, name, email, message } = body;
@@ -41,6 +41,6 @@ export const onPost: RequestHandler = async ({ request, json, error }) => {
     return json(200, { id: session.id });
   } catch (err) {
     console.error('Error creating checkout session:', err);
-    return error(500, 'Failed to create checkout session');
+    return json(500, { error: 'Error creating checkout session' });
   }
 };

@@ -1,4 +1,4 @@
-import { component$, useSignal, useTask$ } from '@builder.io/qikloud';
+import { component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 
 export default component$(() => {
