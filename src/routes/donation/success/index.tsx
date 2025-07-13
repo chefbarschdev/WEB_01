@@ -64,7 +64,12 @@ export default component$(() => {
             ) : (
               <div class="text-center">
                 <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                  <svg class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg 
+                    class="h-12 w-12 text-green-500" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>

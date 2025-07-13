@@ -1,15 +1,6 @@
 import { component$, useSignal, useStore, $ } from '@builder.io/qwik';
 import { loadStripe } from '@stripe/stripe-js';
 
-// Get the public Stripe key from environment variables
-declare global {
-  interface ImportMeta {
-    env: {
-      PUBLIC_STRIPE_PUBLISHABLE_KEY: string;
-    };
-  }
-}
-
 interface DonationData {
   amount: number;
   name: string;
