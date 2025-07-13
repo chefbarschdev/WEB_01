@@ -1,4 +1,4 @@
-import { $, component$, useSignal, useTask$, useOnDocument } from '@builder.io/qwik';
+import { $, component$, useSignal, useTask$ } from '@builder.io/qwik';
 
 interface Testimonial {
   id: number;
