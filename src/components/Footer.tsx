@@ -76,6 +76,14 @@ export const Footer = component$(() => {
               </li>
               <li>
                 <Link
+                  href="/donation/"
+                  class="text-gray-400 hover:text-white transition-colors"
+                >
+                  Donate
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/contact/"
                   class="text-gray-400 hover:text-white transition-colors"
                 >
