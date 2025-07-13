@@ -54,6 +54,16 @@ export const NavBar = component$(() => {
               Wait-list
             </Link>
             <Link
+              href="/donation/"
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/donation/')
+                  ? 'text-purple-600 bg-purple-50'
+                  : 'text-gray-700 hover:text-purple-600 hover:bg-gray-50'
+              }`}
+            >
+              Donate
+            </Link>
+            <Link
               href="/contact/"
               class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 isActive('/contact/')
@@ -119,6 +129,16 @@ export const NavBar = component$(() => {
               }`}
             >
               Wait-list
+            </Link>
+            <Link
+              href="/donation/"
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/donation/')
+                  ? 'text-purple-600 bg-purple-50'
+                  : 'text-gray-700 hover:text-purple-600 hover:bg-gray-50'
+              }`}
+            >
+              Donate
             </Link>
             <Link
               href="/contact/"
