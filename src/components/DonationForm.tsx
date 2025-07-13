@@ -227,9 +227,30 @@ export const DonationForm = component$(() => {
               )}
             </button>
             <div class="mt-4 flex items-center justify-center space-x-4">
-              <img src="https://js.stripe.com/v3/fingerprinted/img/visa-3659cf505ba7d0c8c864801b40434bbc.svg" alt="Visa" class="h-6" />
-              <img src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d884409413071ff2024c209ce9a98c4.svg" alt="Mastercard" class="h-6" />
-              <img src="https://js.stripe.com/v3/fingerprinted/img/amex-a49b82f46c5cd6a96a6e418a8c6c9f7b.svg" alt="American Express" class="h-6" />
+              <img 
+                src="https://js.stripe.com/v3/fingerprinted/img/visa-3659cf505ba7d0c8c864801b40434bbc.svg" 
+                alt="Visa" 
+                class="h-6"
+                width="40"
+                height="24"
+                loading="lazy"
+              />
+              <img 
+                src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d884409413071ff2024c209ce9a98c4.svg" 
+                alt="Mastercard" 
+                class="h-6"
+                width="40"
+                height="24"
+                loading="lazy"
+              />
+              <img 
+                src="https://js.stripe.com/v3/fingerprinted/img/amex-a49b82f46c5cd6a96a6e418a8c6c9f7b.svg" 
+                alt="American Express" 
+                class="h-6"
+                width="40"
+                height="24"
+                loading="lazy"
+              />
             </div>
             <p class="mt-3 text-xs text-gray-500 text-center">
               Your payment is secure and encrypted. We never store any card details.

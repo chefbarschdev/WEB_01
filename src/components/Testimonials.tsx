@@ -1,4 +1,4 @@
-import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { $, component$, useSignal, useTask$, useOnDocument } from '@builder.io/qwik';
 
 interface Testimonial {
   id: number;
@@ -67,12 +67,17 @@ export const Testimonials = component$(() => {
   ];
 
   // Auto-rotate testimonials
-  useVisibleTask$(() => {
+  useTask$(({ track, cleanup }) => {
+    track(() => current.value);
+    
+    // Only run in browser
+    if (typeof window === 'undefined') return;
+    
     const timer = setInterval(() => {
       current.value = (current.value + 1) % testimonials.length;
     }, 5000);
 
-    return () => clearInterval(timer);
+    cleanup(() => clearInterval(timer));
   });
 
   const nextTestimonial = $(() => {

@@ -91,7 +91,7 @@ export default component$(() => {
                   </a>
                   <a
                     href="/donate"
-                    className="text-sm font-semibold text-gray-900 hover:text-gray-700"
+                    class="text-sm font-semibold text-gray-900 hover:text-gray-700"
                   >
                     Make Another Donation <span aria-hidden="true">&rarr;</span>
                   </a>
