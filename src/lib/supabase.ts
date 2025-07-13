@@ -31,31 +31,7 @@ function createMockSupabaseClient(): MockSupabaseClient {
 }
 
 export function createSupabaseServerClient() {
-  const url = process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const anonKey =
-    process.env.SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY;
-  const key = serviceKey || anonKey;
-  const testMode = process.env.NODE_ENV === 'development' && process.env.SUPABASE_TEST_MODE === 'true';
-
-  // Use mock client in test mode or when credentials are missing
-  if (testMode || !url || !key) {
-    if (!testMode) {
-      console.error('Missing Supabase credentials, using mock client in production');
-    } else {
-      console.log('Using Supabase test mode');
-    }
-    return createMockSupabaseClient();
-  }
-
-  if (!serviceKey) {
-    console.warn(
-      'SUPABASE_SERVICE_ROLE_KEY not provided, falling back to anon key.'
-    );
-  }
-
-  return createClient(url, key, {
-    auth: { persistSession: false },
-    global: { fetch },
-  });
+  return createMockSupabaseClient();
 }
+
+});
